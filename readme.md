@@ -1,5 +1,5 @@
-This project is focused on a analyzing the Los Angles Metro Bike Share
-data. This operation provides rental bicycles 365 days a year since the 2d quarter
+This project is focused on analyzing the Los Angles Metro Bike Share
+data. This operation provides rental bicycles 365 days a year since the 2nd quarter
 of 2016. During this period, four regions in Los Angeles were served:
 1. Downtown LA,
 2. The Port of LA
