@@ -5,7 +5,9 @@ Created on Tue Mar 12 00:24:12 2019
 @author: Shiva
 """
 import pandas as pd
+import numpy as np
 from datetime import timedelta
+from math import radians, cos, sin, asin, sqrt
 
 #Reading data files
 data = pd.read_excel('LABikeData.xlsx')
@@ -25,6 +27,28 @@ data['passholder_type'].loc[data['passholder_type'] == "Annual Pass"] = "Flex Pa
 data['start_time']= pd.to_datetime(data['start_time']) 
 data['end_time']= pd.to_datetime(data['end_time']) 
 data['trip_duration_mins'] = (data.end_time - data.start_time)/ timedelta(minutes=1)
+
+#Calculating Distance traveled 
+data["Distance"]=""
+def haversine(lon1, lat1, lon2, lat2):
+    """
+    Calculate the great circle distance between two points 
+    on the earth (specified in decimal degrees)
+    """
+    # convert decimal degrees to radians 
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+
+    # haversine formula 
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1 
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * asin(sqrt(a)) 
+    r = 6371 # Radius of earth in kilometers. Use 3956 for miles
+    return c * r
+  
+vfunc = np.vectorize(haversine)
+data.Distance= vfunc(data.start_lon,data.start_lat,data.end_lon,data.end_lat)
+
 
 #Dropping missing values
 data = data.dropna()
