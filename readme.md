@@ -5,6 +5,8 @@ of 2016. During this period, four regions in Los Angeles were served:
 2. The Port of LA
 3. Venice, and
 4. Pasadena.
+
+
 Metro Bike Share plan to expand their operations into other areas of Los Angeles.
 The primary focus is on predicting the number of bicycles needed at each station, evaluating the pricing
 system currently used to make recommendations for possible pricing changes and
