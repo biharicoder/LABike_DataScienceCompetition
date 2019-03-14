@@ -7,8 +7,11 @@ Created on Thu Mar 14 07:08:55 2019
 """
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import pyplot
 import warnings
 warnings.filterwarnings("ignore")
+from math import radians, cos, sin, asin, sqrt
 
 """Load data and create the time stamped index""" 
 def load_data(path):
@@ -25,6 +28,7 @@ def load_data(path):
     data["end_station"] = [int(stn) for stn in data.end_station]   ## Converting float values to interger. 
     return data
 
+"""Adding Dummy Variable and dropping station with no entries"""
 """Adding Dummy Variable and dropping station with no entries"""
 def add_variables(data):
     df = data
@@ -72,6 +76,26 @@ def add_variables(data):
     one_hot_trip_type = pd.get_dummies(data['trip_route_category']).rename(columns={
             'Round Trip': 'round_trip',
             'One Way': 'one_way'})
+    #Calculating Distance traveled 
+    data["Distance"]=""
+    def haversine(lon1, lat1, lon2, lat2):
+        """
+        Calculate the great circle distance between two points 
+        on the earth (specified in decimal degrees)
+        """
+        # convert decimal degrees to radians 
+        lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+
+        # haversine formula 
+        dlon = lon2 - lon1 
+        dlat = lat2 - lat1 
+        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+        c = 2 * asin(sqrt(a)) 
+        r = 6371 # Radius of earth in kilometers. Use 3956 for miles
+        return c * r
+
+    vfunc = np.vectorize(haversine)
+    data.Distance= vfunc(data.start_lon,data.start_lat,data.end_lon,data.end_lat)
     
     data = pd.concat([data , one_hot_pass, one_hot_trip_type], axis=1)
 
@@ -121,3 +145,24 @@ def network(data):
     station_matrix = pd.DataFrame(matrix, index= station, columns=station)
     
     return station_matrix
+
+"""Function for linear regression"""
+def linear_regression(data, station_list):
+    station = station_list
+    reg_coef = {"Demand_in_Stn": ['Distance','trip_duration_mins','annual','monthly','one_day','walk_up',
+                             'one_way','round_trip','Time_line'] }
+    for i in range(len(station)):
+        stn = station[i]
+        df = data.loc[stn]
+        x = df.drop(["trip_id"], axis=1)
+        x["Time_line"] = x.index
+        y = df["trip_id"]
+        reg = linear_model.LinearRegression()
+        reg.fit(x,y)
+        reg_coef[stn] =  reg.coef_
+        coef_df = pd.DataFrame(reg_coef).T
+        coef_df.reset_index()
+        coef_df.columns = list(coef_df.iloc[0])
+        coef_df = coef_df.drop(['Demand_in_Stn'], axis=0 )
+        
+    return coef_df
