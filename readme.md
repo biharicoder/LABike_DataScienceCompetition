@@ -17,5 +17,26 @@ Statistical models are developed for forecasting demand for the coming month. Fr
 1. Managing bicycle staging at the 140+ rental stations,
 2. Forecasting income from ticket sales on a monthly basis for each region,
 and make recommendations for possible pricing modifications.
-3. Identify key characteristics that identify whether a region will be successful
+3. Identifying key characteristics that identify whether a region will be successful
 in the future by evaluating the four regions found in these data.
+
+LABikeData.xls: Excel file containing data downloaded from LA Metro Bike Sharing official website
+
+LABike_sorting_visual_code.ipyng: Jupyter notebook for preliminary data analysis
+
+Report.docx: Final report of the project
+
+Station_Tables.xlsx: Data regarding the bike stations downloaded from the official website of LA Metro bike share company
+
+data_cleaning.ipynb: Jupyter notebook for data cleaning and EDA
+
+df_mod.csv: cleaned dataset
+
+final_pre_processing.ipynb: Jupyter notebook for data preprocessing
+
+linear_regression_monthly.ipynb: 
+
+pricing_optimization.ipynb: Jupyter notebook for linear and quadratic optimization of the total revenue and pricing recommendation based on the analysis of old and current pricing model
+
+unique_cordinates.csv: Excel file in which distance is calculated using Google Matrix API using start and end coordinates and the mode of transport set as bike ride
+
