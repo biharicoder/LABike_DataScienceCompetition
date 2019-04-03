@@ -20,6 +20,9 @@ and make recommendations for possible pricing modifications.
 3. Identifying key characteristics that identify whether a region will be successful
 in the future by evaluating the four regions found in these data.
 
+
+Following are the descriptions of each of the files in this repository:
+
 LABikeData.xls: Excel file containing data downloaded from LA Metro Bike Sharing official website
 
 LABike_sorting_visual_code.ipyng: Jupyter notebook for preliminary data analysis
