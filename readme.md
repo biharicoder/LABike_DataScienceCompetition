@@ -45,3 +45,5 @@ unique_cordinates.csv: Excel file in which distance is calculated using Google M
 
 web_scraping.ipynb: A notebook that mines data from the LA Bike metro website
 
+Further improvements:
+Web scraping could be integrated with the prediction pipeline and it would be updated whenever new data is populated on the website. 
