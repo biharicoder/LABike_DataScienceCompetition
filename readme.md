@@ -43,3 +43,5 @@ pricing_optimization.ipynb: Jupyter notebook for linear and quadratic optimizati
 
 unique_cordinates.csv: Excel file in which distance is calculated using Google Matrix API using start and end coordinates and the mode of transport set as bike ride
 
+web_scraping.ipynb: A notebook that mines data from the LA Bike metro website
+
